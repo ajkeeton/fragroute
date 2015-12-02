@@ -1,4 +1,4 @@
-At times I've need to use and modify Dug Song's Fragroute. This serves as a central repository.
+At times I have needed to use or modify Dug Song's Fragroute. This serves as a central repository.
 
 * Fragroute 1.2 uses an obsolete version of libevent and won't compile 
 out-of-the-box. I've hacked around that.
