@@ -31,22 +31,6 @@
 #define LOOPBACK_DEV	"lo0"
 #endif
 
-struct tun {
-	intf_t			*intf;
-	pcap_t			*pcap;
-	route_t			*route;
-
-	struct route_entry	 rtent;
-	struct intf_entry	*ifent;
-	u_char			 buf[1024];
-	int			 dloff;
-	
-	int			 fd;
-	struct event		 ev;
-	tun_handler		 callback;
-	void			*arg;
-};
-
 tun_t *
 tun_open(struct addr *src, struct addr *dst, int mtu)
 {
@@ -125,7 +109,7 @@ _pcap_recv(u_char *u, const struct pcap_pkthdr *hdr, const u_char *pkt)
 	 * XXX - if we wanted to be a real tunnel device,
 	 * we would forcibly rewrite the addresses here...
 	 */
-	(*tun->callback)((u_char *)pkt + tun->dloff,
+	(*tun->callback)(hdr, (u_char *)pkt + tun->dloff,
 	    hdr->caplen - tun->dloff, tun->arg);
 }
 
